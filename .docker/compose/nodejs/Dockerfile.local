@@ -1,0 +1,15 @@
+FROM node:24.5.0-alpine
+
+RUN apk add --update \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+WORKDIR /work
+
+COPY --chown=node:node . .
+
+RUN yarn
+
+USER node
+
+ENTRYPOINT ["npx", "nx", "start"]
